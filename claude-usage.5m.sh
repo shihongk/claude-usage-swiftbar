@@ -105,7 +105,7 @@ function run(a){
     return $(str).sizeWithAttributes(d).width;
   }
   var cols=(rt?[["RESETS",rt,0]]:[]).concat([["5H",sp+"%",sp],["7D",wp+"%",wp]]);
-  var glyphW=width("✳",15,0.0,false), gap=7, pad=1;
+  var glyphW=width("✳",15,0.0,false), gap=13, pad=1;
   var widths=cols.map(function(c){return Math.max(width(c[0],8,0.3,false),width(c[1],12,0.3,true));});
   var W=Math.ceil(pad+glyphW+gap+widths.reduce(function(a,b){return a+b+gap;},0)-gap+pad);
   var rep=$.NSBitmapImageRep.alloc.initWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBytesPerRowBitsPerPixel(
