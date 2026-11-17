@@ -20,7 +20,7 @@ Shows your 5-hour session % and weekly %. Each number turns orange at 70% and re
 ## Install
 
 ```bash
-git clone <this repo's URL> claude-usage-swiftbar
+git clone https://github.com/shihongk/claude-usage-swiftbar.git
 cd claude-usage-swiftbar
 ./install.sh
 ```
