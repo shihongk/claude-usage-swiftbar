@@ -84,16 +84,12 @@ ICON_JS=$(cat <<'ICONEOF'
 ObjC.import('AppKit');
 function run(a){
   var sp=a[0], wp=a[1], dark=a[2]=="1";
-  var S=2, H=22;
+  var S=2, H=22; // S = retina scale
   var lab = dark? [1,1,1,0.6] : [0,0,0,0.6];
   var base= dark? [1,1,1,1] : [0,0,0,1];
   var claude=[0.851,0.467,0.341,1];
   function col(p){ return p>=90?[1,0.27,0.23,1]:(p>=70?[1,0.62,0.04,1]:base); }
   function ns(c){return $.NSColor.colorWithSRGBRedGreenBlueAlpha(c[0],c[1],c[2],c[3]);}
-  function attrs(sz,w,c,mono){
-    var f = mono? $.NSFont.monospacedDigitSystemFontOfSizeWeight(sz,w) : $.NSFont.systemFontOfSizeWeight(sz,w);
-    return $({}).mutableCopy, {f:f,c:c};
-  }
   function draw(str,sz,w,c,mono,x,y){
     var f = mono? $.NSFont.monospacedDigitSystemFontOfSizeWeight(sz,w) : $.NSFont.systemFontOfSizeWeight(sz,w);
     var d=$.NSMutableDictionary.alloc.init;
@@ -271,7 +267,7 @@ if [ -n "$CREDS_FOUND" ]; then
     case "$HTTP_CODE" in
       200) save_and_render "$BODY" ;;
       401|403) OAUTH_NOTE="Claude Code login was rejected (HTTP $HTTP_CODE)" ;;
-      *) [ -z "$KEY_FALLBACK_TRIED" ] && OAUTH_NET_FAIL=1 ;;
+      *) OAUTH_NET_FAIL=1 ;;
     esac
   else
     OAUTH_NOTE="Claude Code token expired and auto-refresh failed; run claude once"
