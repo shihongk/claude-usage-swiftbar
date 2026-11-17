@@ -1,6 +1,6 @@
 #!/bin/bash
 # <xbar.title>Claude Usage</xbar.title>
-# <xbar.version>v1.0</xbar.version>
+# <xbar.version>v1.1</xbar.version>
 # <xbar.desc>Claude Pro 5-hour and weekly usage in the menu bar (unofficial claude.ai endpoints)</xbar.desc>
 # <swiftbar.hideAbout>true</swiftbar.hideAbout>
 # <swiftbar.hideRunInTerminal>true</swiftbar.hideRunInTerminal>
