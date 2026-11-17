@@ -83,7 +83,7 @@ round() { printf '%.0f' "${1:-0}" 2>/dev/null || echo 0; }
 ICON_JS=$(cat <<'ICONEOF'
 ObjC.import('AppKit');
 function run(a){
-  var sp=a[0], wp=a[1], dark=a[2]=="1";
+  var sp=a[0], wp=a[1], dark=a[2]=="1", rt=(a[3]&&a[3]!="-")?a[3]:"";
   var S=2, H=22; // S = retina scale
   var lab = dark? [1,1,1,0.6] : [0,0,0,0.6];
   var base= dark? [1,1,1,1] : [0,0,0,1];
@@ -104,7 +104,7 @@ function run(a){
     var d=$.NSMutableDictionary.alloc.init; d.setObjectForKey(f,$.NSFontAttributeName);
     return $(str).sizeWithAttributes(d).width;
   }
-  var cols=[["5H",sp+"%",sp],["7D",wp+"%",wp]];
+  var cols=(rt?[["RESETS",rt,0]]:[]).concat([["5H",sp+"%",sp],["7D",wp+"%",wp]]);
   var glyphW=width("✳",15,0.0,false), gap=7, pad=1;
   var widths=cols.map(function(c){return Math.max(width(c[0],8,0.3,false),width(c[1],12,0.3,true));});
   var W=Math.ceil(pad+glyphW+gap+widths.reduce(function(a,b){return a+b+gap;},0)-gap+pad);
@@ -130,10 +130,10 @@ function run(a){
 }
 ICONEOF
 )
-make_icon() {  # $1=session% $2=weekly% -> base64 PNG (empty on failure)
+make_icon() {  # $1=session% $2=weekly% $3=reset time ("1:30 pm" or "-") -> base64 PNG
   local dark=0
   [ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ] && dark=1
-  osascript -l JavaScript -e "$ICON_JS" "$1" "$2" "$dark" 2>/dev/null | tr -d '\n'
+  osascript -l JavaScript -e "$ICON_JS" "$1" "$2" "$dark" "${3:--}" 2>/dev/null | tr -d "\n"
 }
 
 # ---------- output ----------
@@ -177,7 +177,9 @@ render() {  # $1 = stale flag (0/1); reads LAST_FILE
   if [ "$hi" -ge 90 ]; then color=" | color=red"
   elif [ "$hi" -ge 70 ]; then color=" | color=orange"; fi
 
-  local icon; icon=$(make_icon "$spi" "$wpi")
+  local rt="-"
+  [ -n "$sr" ] && [ "$sr" -gt "$now" ] && rt=$(fmt_clock "$sr" | tr 'A-Z' 'a-z')
+  local icon; icon=$(make_icon "$spi" "$wpi" "$rt")
   if [ -n "$icon" ]; then
     echo "| image=$icon"
   else

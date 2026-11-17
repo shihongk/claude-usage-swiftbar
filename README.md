@@ -3,11 +3,11 @@
 Your Claude Pro/Max plan usage in the macOS menu bar, in the same stacked label-over-value style as the [Stats](https://github.com/exelban/stats) app:
 
 ```
-✳  5H   7D
-  28%  39%
+✳  RESETS   5H   7D
+   1:30 pm  28%  39%
 ```
 
-Shows your 5-hour session % and weekly %. Each number turns orange at 70% and red at 90%. The dropdown shows reset times (local time), last-updated time, and a link to your usage page.
+Shows when your 5-hour session resets (local time), your 5-hour session %, and your weekly %. Each number turns orange at 70% and red at 90%. The dropdown shows reset times (local time), last-updated time, and a link to your usage page.
 
 > **Unofficial.** Not affiliated with Anthropic. It uses a private usage endpoint that can change or break without notice.
 
