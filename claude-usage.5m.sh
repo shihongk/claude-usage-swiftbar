@@ -84,7 +84,7 @@ ICON_JS=$(cat <<'ICONEOF'
 ObjC.import('AppKit');
 function run(a){
   var sp=a[0], wp=a[1], dark=a[2]=="1", rt=(a[3]&&a[3]!="-")?a[3]:"";
-  var S=2, H=22; // S = retina scale
+  var S=2, H=24; // S = retina scale
   var lab = dark? [1,1,1,0.6] : [0,0,0,0.6];
   var base= dark? [1,1,1,1] : [0,0,0,1];
   var claude=[0.851,0.467,0.341,1];
@@ -120,8 +120,8 @@ function run(a){
   for(var i=0;i<cols.length;i++){
     var w=widths[i];
     var lw=width(cols[i][0],8,0.3,false), vw=width(cols[i][1],12,0.3,true);
-    draw(cols[i][0],8,0.3,lab,false,x+(w-lw)/2,11.5);
-    draw(cols[i][1],12,0.3,col(cols[i][2]),true,x+(w-vw)/2,0.5);
+    draw(cols[i][0],8,0.3,lab,false,x+(w-lw)/2,14.5);
+    draw(cols[i][1],12,0.3,col(cols[i][2]),true,x+(w-vw)/2,0);
     x+=w+gap;
   }
   $.NSGraphicsContext.restoreGraphicsState;
